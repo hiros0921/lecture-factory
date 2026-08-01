@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 1920px; height: 1080px; overflow: hidden;
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+    background: #10151f;
+  }
+  .slide {
+    width: 1920px; height: 1080px;
+    display: flex; flex-direction: column;
+    padding: 90px 130px 90px;
+    position: relative;
+    background:
+      radial-gradient(ellipse 1400px 900px at 85% -10%, rgba(46,64,102,0.55) 0%, rgba(16,21,31,0) 60%),
+      linear-gradient(160deg, #131a28 0%, #10151f 60%, #0c1018 100%);
+  }
+  /* 細い金の内枠 */
+  .frame {
+    position: absolute; inset: 34px;
+    border: 1px solid rgba(200,168,106,0.45);
+    pointer-events: none;
+  }
+  .frame::after {
+    content: ""; position: absolute; inset: 6px;
+    border: 1px solid rgba(200,168,106,0.18);
+  }
+  .logo {
+    font-family: "Hiragino Sans", sans-serif;
+    font-size: 26px; font-weight: 600; letter-spacing: 0.42em;
+    color: #c8a86a;
+  }
+  h1 {
+    margin-top: 96px;
+    font-size: 78px; font-weight: 600; line-height: 1.35;
+    color: #f2ede2;
+    letter-spacing: 0.06em;
+  }
+  .rule {
+    width: 150px; height: 2px; margin-top: 40px;
+    background: linear-gradient(90deg, #c8a86a 0%, rgba(200,168,106,0.15) 100%);
+  }
+  ul {
+    margin-top: 78px; list-style: none;
+  }
+  li {
+    font-size: 46px; line-height: 1.6; color: #cfd3da;
+    margin-bottom: 50px;
+    padding-left: 70px; position: relative;
+    letter-spacing: 0.04em;
+  }
+  /* 金のひし形マーカー */
+  li::before {
+    content: ""; position: absolute; left: 14px; top: 26px;
+    width: 16px; height: 16px;
+    background: linear-gradient(135deg, #d9bc80, #a8874a);
+    transform: rotate(45deg);
+  }
+  .footer {
+    position: absolute; top: 92px; right: 130px;
+    font-family: "Hiragino Sans", sans-serif;
+    font-size: 24px; letter-spacing: 0.08em;
+    color: rgba(207,211,218,0.4);
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <div class="frame"></div>
+    <div class="logo">{{LOGO}}</div>
+    <h1>{{HEADING}}</h1>
+    <div class="rule"></div>
+    <ul>
+      {{BULLETS}}
+    </ul>
+    <div class="footer">{{FOOTER}}</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 1920px; height: 1080px; overflow: hidden;
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+    background: #0c1018;
+  }
+  .slide {
+    width: 1920px; height: 1080px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    position: relative;
+    background:
+      radial-gradient(ellipse 1200px 800px at 50% 115%, rgba(46,64,102,0.5) 0%, rgba(12,16,24,0) 60%),
+      radial-gradient(ellipse 900px 500px at 50% -15%, rgba(200,168,106,0.10) 0%, rgba(12,16,24,0) 55%),
+      linear-gradient(180deg, #121826 0%, #0c1018 100%);
+  }
+  .frame {
+    position: absolute; inset: 34px;
+    border: 1px solid rgba(200,168,106,0.5);
+    pointer-events: none;
+  }
+  .frame::after {
+    content: ""; position: absolute; inset: 6px;
+    border: 1px solid rgba(200,168,106,0.2);
+  }
+  .logo {
+    position: absolute; top: 88px;
+    font-family: "Hiragino Sans", sans-serif;
+    font-size: 26px; font-weight: 600; letter-spacing: 0.42em;
+    color: #c8a86a;
+  }
+  .ornament-top {
+    width: 56px; height: 56px; margin-bottom: 64px;
+    border: 1px solid rgba(200,168,106,0.75);
+    transform: rotate(45deg);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ornament-top::after {
+    content: ""; width: 18px; height: 18px;
+    background: linear-gradient(135deg, #d9bc80, #a8874a);
+  }
+  h1 {
+    font-size: 82px; font-weight: 600; line-height: 1.5;
+    color: #f2ede2; text-align: center;
+    letter-spacing: 0.08em;
+    max-width: 1660px;
+  }
+  .rule {
+    width: 320px; height: 1px; margin-top: 66px;
+    background: linear-gradient(90deg, rgba(200,168,106,0) 0%, #c8a86a 50%, rgba(200,168,106,0) 100%);
+  }
+  .footer {
+    position: absolute; bottom: 58px;
+    font-family: "Hiragino Sans", sans-serif;
+    font-size: 24px; letter-spacing: 0.08em;
+    color: rgba(207,211,218,0.4);
+  }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <div class="frame"></div>
+    <div class="logo">{{LOGO}}</div>
+    <div class="ornament-top"></div>
+    <h1>{{HEADING}}</h1>
+    <div class="rule"></div>
+    <div class="footer">{{FOOTER}}</div>
+  </div>
+</body>
+</html>

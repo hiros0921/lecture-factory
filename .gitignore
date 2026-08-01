@@ -1,0 +1,13 @@
+assets/.fal_key
+assets/voice_id.txt
+assets/r2_config.json
+assets/access_config.json
+assets/my_voice*.wav
+assets/voice/
+assets/cam.mov
+audio/
+out/
+build/
+slides/*/
+__pycache__/
+.DS_Store

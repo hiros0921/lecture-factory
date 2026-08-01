@@ -1,0 +1,39 @@
+{
+  "engine": "minimax",
+  "_qc": "自動検収のしきい値。エンジン別の qc で上書きできる。既定値と根拠は tools/qc_audio.py の冒頭を参照",
+  "qc": {
+    "transcribe": true
+  },
+  "say": {
+    "voice": "Kyoko",
+    "rate": 190,
+    "qc": {
+      "chars_per_sec": 7.2,
+      "min_duration_ratio": 0.55,
+      "max_duration_ratio": 2.0,
+      "tail_silence_min": 0.01,
+      "clip_ratio_max": 0.001,
+      "peak_max": 0.999,
+      "rms_db_min": -40.0
+    }
+  },
+  "minimax": {
+    "model_id": "fal-ai/minimax/speech-02-hd",
+    "format": "flac",
+    "sample_rate": 44100,
+    "speed": 1.0,
+    "_comment": "fal公式スキーマに準拠（2026-07-31確認）。assets/.fal_key と assets/voice_id.txt が必要",
+    "_qc_comment": "MiniMaxで実測して確定（2026-07-31）。ピークでは判定しない。このエンジンは設計上フルスケール付近まで音量を上げるため、正常でもピーク1.000になる。実際に歪んでいた例はクリップ率0.00005だったので、そちらで判定する。末尾無音は当初50msにしたが、正常な音声で43msが出て無駄なリトライが起きたため20msに緩めた（本当に切れている場合は0msになる）",
+    "qc": {
+      "chars_per_sec": 6.1,
+      "min_duration_ratio": 0.55,
+      "max_duration_ratio": 2.0,
+      "tail_silence_min": 0.02,
+      "clip_ratio_max": 2e-05,
+      "peak_max": 1.001,
+      "rms_db_min": -40.0
+    },
+    "vol": 0.85,
+    "_vol_comment": "MiniMaxは既定(1.0)だとピーク1.000でクリップすることがある（実測）。余裕を持たせる"
+  }
+}
