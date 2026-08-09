@@ -20,6 +20,7 @@ BASE = Path(__file__).resolve().parent.parent
 
 # 公開するものだけを列挙する。ここに書いていないものは入らない。
 INCLUDE = [
+    "README.md",
     "pipeline.py",
     ".gitignore",
     "tools/assemble.py",
@@ -31,6 +32,8 @@ INCLUDE = [
     "tools/parse_script.py",
     "tools/qc_audio.py",
     "tools/qc_transcribe.py",
+    "tools/qc_motion.py",
+    "tools/qc_visual.py",
     "tools/telop.py",
     "tools/tts.py",
     "tools/upload_r2.py",
