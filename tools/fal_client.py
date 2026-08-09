@@ -37,7 +37,12 @@ def load_key() -> str:
     return key
 
 
-def _request(url: str, method: str = "GET", payload: dict = None, timeout: int = 120) -> dict:
+RETRIES = 3
+RETRY_WAIT = 3.0
+
+
+def _request(url: str, method: str = "GET", payload: dict = None,
+             timeout: int = 120, attempt: int = 1) -> dict:
     data = json.dumps(payload).encode() if payload is not None else None
     req = urllib.request.Request(url, data=data, method=method, headers={
         "Authorization": f"Key {load_key()}",
@@ -58,8 +63,19 @@ def _request(url: str, method: str = "GET", payload: dict = None, timeout: int =
         elif e.code == 429:
             hint = "\n  → 短時間に投げすぎです。少し待ってからやり直してください。"
         raise RuntimeError(f"fal API エラー HTTP {e.code}\n  {body}{hint}") from None
-    except urllib.error.URLError as e:
-        raise RuntimeError(f"fal に接続できません: {e.reason}") from None
+    except (urllib.error.URLError, OSError) as e:
+        # 画像を data URI で送ると本文が数MBになり、途中で接続が切れることがある
+        # （Broken pipe）。相手側の問題ではないので、少し待って投げ直す。
+        # HTTPError は URLError の派生なので、そちらは下の except で扱う。
+        if attempt < RETRIES:
+            reason = getattr(e, "reason", e)
+            print(f"    通信が切れました（{reason}）。{RETRY_WAIT:.0f}秒後に再試行 "
+                  f"{attempt + 1}/{RETRIES}", flush=True)
+            time.sleep(RETRY_WAIT)
+            return _request(url, method, payload, timeout, attempt + 1)
+        raise RuntimeError(f"fal に接続できません（{RETRIES}回試行）: "
+                           f"{getattr(e, 'reason', e)}") from None
+
 
 
 def run(model_id: str, payload: dict, timeout: int = DEFAULT_TIMEOUT,
